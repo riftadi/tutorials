@@ -29,10 +29,9 @@ run: build
 stop:
 	sudo mn -c
 
-build: dirs $(compiled_json)
-
-$(BUILD_DIR)/%.json: %.p4
-	$(P4C) --p4v 16 $(P4C_ARGS) -o $@ $<
+build: dirs
+	p4c-bm2-ss --p4v 16 --p4runtime-file build/advanced_tunnel.p4info --p4runtime-format text -o build/advanced_tunnel.json advanced_tunnel.p4
+	p4c-bm2-ss --p4v 16 --p4runtime-file build/mri.p4info --p4runtime-format text -o build/mri.json mri.p4
 
 dirs:
 	mkdir -p $(BUILD_DIR) $(PCAP_DIR) $(LOG_DIR)
